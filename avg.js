@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name         سكربت حساب المعدل الجامعي
 // @namespace    avgCalc
+// @encoding     utf-8
 // @version      26.3.2018
 // @description  لحساب معدل طلاب الهندسة المعلوماتية في الجامعة الافتراضية السورية
 // @author       زهير طه

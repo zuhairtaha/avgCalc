@@ -9,7 +9,7 @@
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
 // @icon 	     http://svu-ise.com/files/img/avg.ico
 // @homepage 	 http://svu-ise.com/avg
-// @updateURL    http://svu-ise.com/files/js/avg_update.js
+// @updateURL    https://raw.githubusercontent.com/zuhairtaha/avgCalc/master/avg_update.js
 // @downloadURL  https://raw.githubusercontent.com/zuhairtaha/avgCalc/master/avg.js
 // @grant        none
 // ==/UserScript==

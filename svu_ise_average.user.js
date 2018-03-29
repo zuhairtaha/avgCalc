@@ -10,7 +10,7 @@
 // @icon 	     http://svu-ise.com/files/img/avg.ico
 // @homepage 	 http://svu-ise.com/avg
 // @updateURL    https://raw.githubusercontent.com/zuhairtaha/avgCalc/master/avg_update.js
-// @downloadURL  https://raw.githubusercontent.com/zuhairtaha/avgCalc/master/avg.js
+// @downloadURL  https://github.com/zuhairtaha/avgCalc/raw/master/svu_ise_average.user.js
 // @grant        none
 // ==/UserScript==
 (function () {

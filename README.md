@@ -56,5 +56,7 @@ TamperMonkey
 Tampermonkey 
 ثم اضغط على 
 Check for userscript updates 
-وفي حال وجود أي مشكلة يمكنكم التواصل معي لتعديل الإضافة
+وفي حال وجود أي مشكلة يمكنكم 
+ <a href="https://facebook.com/zuhairtaha"> التواصل معي </a>
+لتعديل الإضافة
 </p>

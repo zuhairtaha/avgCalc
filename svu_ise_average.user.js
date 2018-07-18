@@ -2,7 +2,7 @@
 // @name         حساب معدل طلاب الهندسة المعلوماتية في الجامعة الافتراضية السورية
 // @namespace    http://svu-ise.com/
 // @encoding     utf-8
-// @version      2018.07.18
+// @version      20180718
 // @description  لحساب معدل طلاب الهندسة المعلوماتية في الجامعة الافتراضية السورية
 // @author       زهير طه
 // @include      /(.+)svuonline\.org(.+)/

@@ -203,11 +203,13 @@
       "average" : (b / m).toFixed(2)
     });
   }
-  // console.log(semestersAverages);
+  console.log(semestersAverages);
   semestersAveragesDiv = '<ul class="chart">';
   for (let i = 0; i < semestersAverages.length; i++) {
-    semestersAveragesDiv += '<li><span style="height:' + semestersAverages[i].average + '%" ' +
-      'title="' + semestersAverages[i].semester + ' ' + Math.round(semestersAverages[i].average) + '"></span></li>';
+    let sAvg = Math.round(semestersAverages[i].average);
+    if (sAvg === 0) continue;
+    semestersAveragesDiv += '<li><span style="height:' + sAvg + '%" ' +
+      'title="' + semestersAverages[i].semester + ' ' + sAvg + '"></span></li>';
   }
   semestersAveragesDiv += '</ul><br/>';
   //endregion
@@ -252,7 +254,10 @@
   if (year === 'الخامسة') {
     html += '<p>السنة الحالية: ' + year + '<br /><span style="font-size:13px">باقي ' + remainToNxt + ' ساعات للتخرج ' + '<span></p>';
   } else {
-    html += '<p>السنة الحالية: ' + year + '<br /><span style="font-size:13px">باقي ' + remainToNxt + ' لتصبح سنة ' + NxtYerar + '<span></p>';
+    if (totlaHours >= 165)
+      html += '<p>السنة الحالية: ' + year + '<br /><span style="font-size:13px"> * * * * * <span></p>';
+    else
+      html += '<p>السنة الحالية: ' + year + '<br /><span style="font-size:13px">باقي ' + remainToNxt + ' لتصبح سنة ' + NxtYerar + '<span></p>';
   }
   html += '</div><div class="tahasoft ts3"><img src="' + img3 + '">';
   html += '<p>الساعات المتبقية للتخرج <br />' + remain + ' </p>';
@@ -263,4 +268,5 @@
   $('.act_link').before(html);
   $(".ts4").after("<a id='lastUpdateAnchor' target='_blank' href='http://svu-ise.com/avg'>last update: " + last_update + "</a>");
   // endregion
+
 })();

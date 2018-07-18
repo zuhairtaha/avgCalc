@@ -2,7 +2,7 @@
 // @name         حساب معدل طلاب الهندسة المعلوماتية في الجامعة الافتراضية السورية
 // @namespace    http://svu-ise.com/
 // @encoding     utf-8
-// @version      2018.07.18
+// @version      2018.07.19
 // @description  لحساب معدل طلاب الهندسة المعلوماتية في الجامعة الافتراضية السورية
 // @author       زهير طه
 // @include      /(.+)svuonline\.org(.+)/
@@ -17,7 +17,8 @@
 (function () {
 
   //region style
-  let style = $('<style>.tahasoft{background:blue none repeat scroll 0 0;border-radius: 5px;box-shadow: 1px 1px 3px #e7e7e7;margin: 3px;color:white;float:left;padding:8px;text-shadow:none;width:258px;overflow: hidden;}.tahasoft p{float:left;font-family:"segoe ui",arial,tahoma,serif;font-size:16px;line-height:24px;}.tahasoft img{float:right;padding-right:10px;}.ts1{background:#fc6a00 none repeat scroll 0 0;}.ts2{background:#028ccb none repeat scroll 0 0;}.ts3{background:#fba400 none repeat scroll 0 0;}.ts4{background:#00bb71 none repeat scroll 0 0;}.avgDiv{background:#fff;margin:auto;width:100%;padding:24px 0;text-align:center;font-size:17px;font-family:arial serif;text-shadow:1px 1px #FCF5CF;direction:rtl;display:inline-block}#lastUpdateAnchor{font-family:tahoma,serif;target=_blank;float:right;margin-right:13px;font-size:9px;margin-top:3px;color:#808080}</style>');
+  let style = $('<style>.tahasoft{background:blue none repeat scroll 0 0;border-radius: 5px;box-shadow: 1px 1px 3px #e7e7e7;margin: 3px;color:white;float:left;padding:8px;text-shadow:none;width:258px;overflow: hidden;}.tahasoft p{float:left;font-family:"segoe ui",arial,tahoma,serif;font-size:16px;line-height:24px;}.tahasoft img{float:right;padding-right:10px;}.ts1{background:#fc6a00 none repeat scroll 0 0;}.ts2{background:#028ccb none repeat scroll 0 0;}.ts3{background:#fba400 none repeat scroll 0 0;}.ts4{background:#00bb71 none repeat scroll 0 0;}.avgDiv{background:#fff;margin:auto;width:100%;padding:24px 0;text-align:center;font-size:17px;font-family:arial serif;text-shadow:1px 1px #FCF5CF;direction:rtl;display:inline-block}#lastUpdateAnchor{font-family:tahoma,serif;target=_blank;float:right;margin-right:13px;font-size:9px;margin-top:3px;color:#808080}.chart{display:table;table-layout:fixed;width:60%;max-width:700px;height:200px;margin:0 auto;background-image:linear-gradient(to top,rgba(0,0,0,.1) 2%,rgba(0,0,0,0) 2%);background-size:100% 50px;background-position:left top}.chart li{position:relative;display:table-cell;vertical-align:bottom;height:200px}.chart span{margin:0 1em;display:block;background:rgba(209,236,250,.75);animation:draw 1s ease-in-out}.chart span:before{position:absolute;left:0;right:0;top:100%;padding:5px 1em 0;display:block;text-align:center;content:attr(title);word-wrap:break-word}@keyframes draw{0%{height:0}}</style>');
+
   $('html > head').append(style);
   //endregion
 
@@ -29,7 +30,7 @@
   //endregion
 
   //region variables
-  let last_update = "18-7-2018";
+  let last_update = "19-7-2018";
   let TotalHoursWithoutSkippedEnglish = 0;
   let countOfPassedSubjects = 0;
   let numerator = 0;
@@ -68,6 +69,8 @@
   let helpDiv;
   let bb = 0;
   let mm = 0;
+  let semestersArray = [];
+  let semestersAveragesDiv;
 //endregion
 
   // region loop table divs
@@ -159,19 +162,16 @@
   //endregion
 
   // region calculate: average, Total hours, remain hours
-
-  // console.log(subjectsArray);
   let myJSON = JSON.stringify(subjectsArray);
-
   // console.log(myJSON);
-  // console.log("EnglishHoursPassed = " + EnglishHoursPassed);
-  // console.log("sumEquivalent = " + sumEquivalent);
 
   $.each(subjectsArray, function (i, obj) {
-
+    if (semestersArray.indexOf(obj.Semester) === -1 && (obj.Semester).length > 1)
+      semestersArray.push(obj.Semester);
     bb += obj.Mark * obj.CreditHours;
     mm += obj.CreditHours;
   });
+
   average = (bb / mm).toFixed(2);
   if (EnglishHoursPassedArray.length > 0)
     EnglishHoursPassed = EnglishHoursPassedArray[0];
@@ -184,6 +184,33 @@
   // remain     = TotalHoursWithoutSkippedEnglish - EnglishHoursPassed;
   remain = 165 - totlaHours;
   // endregion
+
+  // region all semesters averages
+
+  let semestersAverages = [];
+  let b, m;
+  for (let i = 0; i < semestersArray.length; i++) {
+    b = 0;
+    m = 0;
+    $.each(subjectsArray, function (j, obj) {
+      if (obj.Semester === semestersArray[i]) {
+        b += obj.Mark * obj.CreditHours;
+        m += obj.CreditHours;
+      }
+    });
+    semestersAverages.push({
+      "semester": semestersArray[i],
+      "average" : (b / m).toFixed(2)
+    });
+  }
+  // console.log(semestersAverages);
+  semestersAveragesDiv = '<ul class="chart">';
+  for (let i = 0; i < semestersAverages.length; i++) {
+    semestersAveragesDiv += '<li><span style="height:' + semestersAverages[i].average + '%" ' +
+      'title="' + semestersAverages[i].semester + ' ' + Math.round(semestersAverages[i].average) + '"></span></li>';
+  }
+  semestersAveragesDiv += '</ul><br/>';
+  //endregion
 
   // region calculate :current year, next year, remain credit hours to next year
   if (totlaHours > 0 && totlaHours <= 22) {
@@ -232,8 +259,8 @@
   html += '</div><div class="tahasoft ts4"><img src="' + img4 + '">';
   html += '<p>عدد الساعات المجتازة <br /> ' + totlaHours + ' </p>';
   html += '</div></div>';
+  $('.act_link').before(semestersAveragesDiv);
   $('.act_link').before(html);
   $(".ts4").after("<a id='lastUpdateAnchor' target='_blank' href='http://svu-ise.com/avg'>last update: " + last_update + "</a>");
   // endregion
-
 })();

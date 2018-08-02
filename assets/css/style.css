@@ -1,0 +1,28 @@
+@import url(bootstrap-4.1.3/scss/bootstrap-grid.css);
+@import url("https://fonts.googleapis.com/css?family=Cairo");
+body {
+  direction: rtl;
+  font-size: 18px;
+  font-family: 'Cairo', sans-serif;
+  background: #ccc;
+  margin: 0;
+  padding: 0; }
+
+#iconT {
+  width: 18px; }
+
+h1 {
+  background-color: #424242;
+  text-align: center;
+  color: #fff;
+  margin-top: 0;
+  padding: 0.5em;
+  margin-right: -15px;
+  margin-left: -15px; }
+
+.container {
+  background: #fff;
+  margin-top: 0;
+  border: solid 1px #fff; }
+
+/*# sourceMappingURL=style.css.map */
